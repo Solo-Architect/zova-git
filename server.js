@@ -24,10 +24,6 @@ if (!fs.existsSync(DOWNLOADS_DIR)) {
 app.use(cors());
 app.use(express.json());
 
-// Статика: фронтенд и загружаемые файлы
-app.use(express.static(__dirname));
-app.use('/downloads', express.static(DOWNLOADS_DIR));
-
 // Хранилище для multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -182,7 +178,7 @@ async function scanDownloads() {
   return projectsWithMeta.map(({ _mtimeMs, ...p }) => p);
 }
 
-// ===== API =====
+// ===== 1. СНАЧАЛА ВСЕ API-МАРШРУТЫ =====
 app.get('/api/projects', async (req, res) => {
   try {
     const projects = await scanDownloads();
@@ -245,6 +241,11 @@ app.delete('/api/projects/:id', async (req, res) => {
   }
 });
 
+// ===== 2. ТОЛЬКО ПОСЛЕ API СТАВИМ СТАТИКУ =====
+app.use(express.static(__dirname));
+app.use('/downloads', express.static(DOWNLOADS_DIR));
+
+// ===== 3. ЗАПУСК СЕРВЕРА =====
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
   console.log(`📦 Папка для ZIP: ${DOWNLOADS_DIR}`);
