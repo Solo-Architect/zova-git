@@ -1,21 +1,8 @@
 // ==================== КОНФИГУРАЦИЯ ====================
-function getApiBase() {
-    // 1) ?api=https://backend.onrender.com
-    const url = new URL(window.location.href);
-    const fromQuery = url.searchParams.get('api');
-    if (fromQuery) return fromQuery.replace(/\/$/, '');
-
-    // 2) localStorage (удобно для Vercel)
-    const fromStorage = localStorage.getItem('gitvova_api_base');
-    if (fromStorage) return String(fromStorage).replace(/\/$/, '');
-
-    // 3) same-origin (локально/Render fullstack)
-    return '';
-}
-
-const API_BASE = 'https://solo-architect-zova-git-023b.twc1.net';
-const API_URL = `${API_BASE}/api/projects`;
-const UPLOAD_URL = `${API_BASE}/api/upload`;
+// Определяем базовый URL для API
+const API_BASE = window.location.origin;
+const API_URL = API_BASE + '/api/projects';
+const UPLOAD_URL = API_BASE + '/api/upload';
 
 let allProjects = [];
 let isLoading = false;
@@ -79,8 +66,6 @@ async function loadProjects() {
         if (typeof updateStats === 'function') {
             updateStats(allProjects);
         }
-
-        // AOS оставляем для статичных блоков, карточки анимируем GSAP/CSS
 
         return allProjects;
     } catch (error) {
@@ -256,8 +241,6 @@ function setupFilters() {
                 );
                 displayProjects(grid, filtered);
             }
-
-            // AOS оставляем для статичных блоков, карточки анимируем GSAP/CSS
         });
     });
 }
@@ -396,7 +379,7 @@ function showNotification(message, type = 'info') {
     if (!container) return;
 
     const notification = document.createElement('div');
-    notification.className = `notification notification--${type}`;
+    notification.className = 'notification notification--' + type;
     notification.textContent = message;
 
     container.appendChild(notification);
@@ -496,7 +479,7 @@ function attachReadmeHandlers() {
             if (window.marked && typeof marked.parse === 'function') {
                 html = marked.parse(raw);
             } else {
-                html = `<pre>${escapeHtml(raw)}</pre>`;
+                html = '<pre>' + escapeHtml(raw) + '</pre>';
             }
 
             readmeTitle.textContent = project.title || 'README';
@@ -521,7 +504,7 @@ function attachGlowHandlers() {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            const gradient = `radial-gradient(circle at ${x}px ${y}px, ${color}55, transparent 70%)`;
+            const gradient = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, ' + color + '55, transparent 70%)';
             card.style.setProperty('--card-glow', gradient);
         });
         card.addEventListener('mouseleave', () => {
@@ -542,7 +525,7 @@ function attachDeleteHandlers() {
             if (!id) return;
 
             const title = allProjects.find(p => p.id === id)?.title || id;
-            const ok = confirm(`Удалить проект "${title}"?`);
+            const ok = confirm('Удалить проект "' + title + '"?');
             if (!ok) return;
 
             if (!adminToken) {
@@ -555,7 +538,7 @@ function attachDeleteHandlers() {
             try {
                 showNotification('🗑️ Удаляю...', 'info');
 
-                const response = await fetch(`${API_BASE}/api/projects/${encodeURIComponent(id)}`, {
+                const response = await fetch(API_BASE + '/api/projects/' + encodeURIComponent(id), {
                     method: 'DELETE',
                     headers: {
                         'x-admin-token': adminToken
