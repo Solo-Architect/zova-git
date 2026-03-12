@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3005;
 // Папка с ZIP-проектами
 const DOWNLOADS_DIR = path.join(__dirname, 'downloads');
 
-// Простой "секрет" для админа (можешь поменять)
+// Простой "секрет" для админа
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'vova-admin-2026';
 const ADMIN_PAGE_TOKEN = process.env.ADMIN_PAGE_TOKEN || 'vova777';
 
@@ -34,8 +34,6 @@ const storage = multer.diskStorage({
     cb(null, DOWNLOADS_DIR);
   },
   filename: (req, file, cb) => {
-    // Сохраняем оригинальное имя (включая кириллицу) с префиксом времени,
-    // чтобы не затирать файлы с одинаковыми названиями
     const timestamp = Date.now();
     const ext = path.extname(file.originalname) || '.zip';
     const base = path.basename(file.originalname, ext);
@@ -76,39 +74,15 @@ function detectLanguageFromZip(zipPath) {
       const ext = path.extname(entry.entryName).toLowerCase();
 
       switch (ext) {
-        case '.js':
-          counts.javascript++;
-          break;
-        case '.ts':
-        case '.tsx':
-          counts.typescript++;
-          break;
-        case '.py':
-          counts.python++;
-          break;
-        case '.php':
-          counts.php++;
-          break;
-        case '.cs':
-          counts.csharp++;
-          break;
-        case '.cpp':
-        case '.cc':
-        case '.cxx':
-        case '.h':
-        case '.hpp':
-          counts.cpp++;
-          break;
-        case '.java':
-          counts.java++;
-          break;
-        case '.html':
-        case '.htm':
-        case '.css':
-          counts.htmlcss++;
-          break;
-        default:
-          counts.other++;
+        case '.js': counts.javascript++; break;
+        case '.ts': case '.tsx': counts.typescript++; break;
+        case '.py': counts.python++; break;
+        case '.php': counts.php++; break;
+        case '.cs': counts.csharp++; break;
+        case '.cpp': case '.cc': case '.cxx': case '.h': case '.hpp': counts.cpp++; break;
+        case '.java': counts.java++; break;
+        case '.html': case '.htm': case '.css': counts.htmlcss++; break;
+        default: counts.other++;
       }
     });
 
@@ -116,9 +90,7 @@ function detectLanguageFromZip(zipPath) {
     entriesCounts.sort((a, b) => b[1] - a[1]);
     const [bestLang, bestCount] = entriesCounts[0];
 
-    if (!bestCount || bestCount === 0) {
-      return 'other';
-    }
+    if (!bestCount || bestCount === 0) return 'other';
 
     const map = {
       javascript: 'JavaScript',
@@ -134,7 +106,6 @@ function detectLanguageFromZip(zipPath) {
 
     return map[bestLang] || 'Other';
   } catch (e) {
-    console.error('Ошибка при анализе ZIP:', e.message);
     return 'Other';
   }
 }
@@ -159,27 +130,19 @@ function extractReadmeFromZip(zipPath) {
   try {
     const zip = new AdmZip(zipPath);
     const entries = zip.getEntries();
-
-    // Ищем README (регистр/подпапки не важны)
     const readmeEntry = entries.find(e => {
       const name = e.entryName.toLowerCase();
       return !e.isDirectory && name.endsWith('readme.md');
     });
-
     if (!readmeEntry) return '';
-
-    const data = readmeEntry.getData();
-    // Пытаемся интерпретировать как UTF‑8
-    return data.toString('utf8');
+    return readmeEntry.getData().toString('utf8');
   } catch (e) {
-    console.error('Ошибка при чтении README.md:', e.message);
     return '';
   }
 }
 
 function decodeNameLatin1ToUtf8(name) {
   try {
-    // Попытка перекодировать строку, если она пришла в "кривой" кодировке
     return Buffer.from(name, 'latin1').toString('utf8');
   } catch {
     return name;
@@ -194,10 +157,8 @@ async function scanDownloads() {
     zipFiles.map(async fileName => {
       const fullPath = path.join(DOWNLOADS_DIR, fileName);
       const stats = await fs.promises.stat(fullPath);
-
       const language = detectLanguageFromZip(fullPath);
       const readme = extractReadmeFromZip(fullPath);
-
       const ext = path.extname(fileName);
       const rawBase = path.basename(fileName, ext);
       const decodedBase = decodeNameLatin1ToUtf8(rawBase);
@@ -217,48 +178,36 @@ async function scanDownloads() {
     })
   );
 
-  // Сортируем по дате файла (новые сначала), без парсинга локализованной строки
   projectsWithMeta.sort((a, b) => (b._mtimeMs || 0) - (a._mtimeMs || 0));
-
-  // Не отдаём служебные поля
   return projectsWithMeta.map(({ _mtimeMs, ...p }) => p);
 }
 
 // ===== API =====
-
-// Список проектов
 app.get('/api/projects', async (req, res) => {
   try {
     const projects = await scanDownloads();
     res.json(projects);
   } catch (e) {
-    console.error(e);
     res.status(500).json({ message: 'Не удалось получить проекты' });
   }
 });
 
-// Загрузка нового ZIP (админ)
 app.post('/api/upload', upload.single('file'), async (req, res) => {
   try {
     const token = req.headers['x-admin-token'];
     if (!token || token !== ADMIN_TOKEN) {
-      // При желании можешь заменить на 401
       return res.status(403).json({ message: 'Нет доступа' });
     }
-
     if (!req.file) {
       return res.status(400).json({ message: 'Файл не найден' });
     }
-
     const projects = await scanDownloads();
     res.status(201).json({ message: 'Файл загружен', projects });
   } catch (e) {
-    console.error(e);
     res.status(500).json({ message: 'Ошибка загрузки файла' });
   }
 });
 
-// Страница админки
 app.get('/admin', (req, res) => {
   const key = req.query.key;
   if (!key || key !== ADMIN_PAGE_TOKEN) {
@@ -267,25 +216,17 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
-// Запрещаем прямое открытие admin.html без ключа
 app.get('/admin.html', (req, res) => {
   return res.redirect('/');
 });
 
-// Удаление ZIP (админ)
 app.delete('/api/projects/:id', async (req, res) => {
   try {
     const token = req.headers['x-admin-token'];
     if (!token || token !== ADMIN_TOKEN) {
       return res.status(403).json({ message: 'Нет доступа' });
     }
-
     const id = req.params.id;
-    if (!id || typeof id !== 'string') {
-      return res.status(400).json({ message: 'Некорректный id' });
-    }
-
-    // Защита от path traversal: работаем только с именем файла
     const safeName = path.basename(id);
     const fullPath = path.join(DOWNLOADS_DIR, safeName);
     const resolved = path.resolve(fullPath);
@@ -293,16 +234,13 @@ app.delete('/api/projects/:id', async (req, res) => {
     if (!resolved.startsWith(resolvedDownloads)) {
       return res.status(400).json({ message: 'Некорректный путь' });
     }
-
     if (!fs.existsSync(fullPath)) {
       return res.status(404).json({ message: 'Файл не найден' });
     }
-
     await fs.promises.unlink(fullPath);
     const projects = await scanDownloads();
     return res.json({ message: 'Удалено', projects });
   } catch (e) {
-    console.error(e);
     return res.status(500).json({ message: 'Ошибка удаления' });
   }
 });
@@ -310,7 +248,6 @@ app.delete('/api/projects/:id', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
   console.log(`📦 Папка для ZIP: ${DOWNLOADS_DIR}`);
-  console.log(`🔐 ADMIN_TOKEN (заголовок x-admin-token): ${ADMIN_TOKEN}`);
-  console.log(`🔐 ADMIN_PAGE_TOKEN (параметр /admin?key=...) : ${ADMIN_PAGE_TOKEN}`);
+  console.log(`🔐 ADMIN_TOKEN: ${ADMIN_TOKEN}`);
+  console.log(`🔐 ADMIN_PAGE_TOKEN: ${ADMIN_PAGE_TOKEN}`);
 });
-
