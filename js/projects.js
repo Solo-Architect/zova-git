@@ -13,7 +13,7 @@ function getApiBase() {
     return '';
 }
 
-const API_BASE = getApiBase();
+const API_BASE = 'https://solo-architect-zova-git-023b.twc1.net';
 const API_URL = `${API_BASE}/api/projects`;
 const UPLOAD_URL = `${API_BASE}/api/upload`;
 
