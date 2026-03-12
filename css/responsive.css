@@ -1,0 +1,576 @@
+/* ===== RESPONSIVE.CSS ===== */
+/* Адаптация под все устройства */
+
+/* ===== LAPTOPS (1024px - 1200px) ===== */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .hero__title {
+        font-size: 64px;
+    }
+    
+    .hero::before {
+        font-size: 450px;
+    }
+    
+    .page-title {
+        font-size: 48px;
+    }
+}
+
+/* ===== TABLETS (768px - 1024px) ===== */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 720px;
+    }
+    
+    /* Header */
+    .header__inner {
+        height: 70px;
+    }
+    
+    .logo a {
+        font-size: 24px;
+    }
+    
+    .nav__list {
+        gap: 30px;
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 100px 0;
+        min-height: auto;
+    }
+    
+    .hero__title {
+        font-size: 56px;
+    }
+    
+    .hero__subtitle {
+        font-size: 18px;
+    }
+    
+    .hero::before {
+        font-size: 400px;
+    }
+    
+    /* Projects Grid */
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    /* About Page */
+    .about-content {
+        grid-template-columns: 250px 1fr;
+        gap: 40px;
+    }
+    
+    .emoji-large {
+        font-size: 140px;
+    }
+    
+    .about-text h2 {
+        font-size: 36px;
+    }
+}
+
+/* ===== SMALL TABLETS (768px and below) ===== */
+@media (max-width: 768px) {
+    .container {
+        max-width: 540px;
+        padding: 0 15px;
+    }
+    
+    /* Header */
+    .header__inner {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+        gap: 15px;
+    }
+    
+    .nav__list {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav__link {
+        font-size: 15px;
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 80px 0;
+    }
+    
+    .hero__title {
+        font-size: 48px;
+    }
+    
+    .hero__subtitle {
+        font-size: 16px;
+        padding: 0 15px;
+    }
+    
+    .hero::before {
+        font-size: 300px;
+    }
+    
+    /* Section Titles */
+    .section-title {
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .page-title {
+        font-size: 42px;
+    }
+    
+    .page-subtitle {
+        font-size: 16px;
+    }
+    
+    /* Projects Grid */
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .project-card {
+        padding: 20px;
+    }
+    
+    .project-card h3 {
+        font-size: 18px;
+    }
+    
+    .project-card p {
+        font-size: 13px;
+    }
+    
+    .project-stats {
+        font-size: 12px;
+        padding: 12px 0;
+    }
+    
+    .project-download {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    /* Filters */
+    .projects-filters {
+        gap: 12px;
+    }
+    
+    .filter-btn {
+        padding: 10px 24px;
+        font-size: 14px;
+    }
+    
+    /* About Page */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .about-emoji {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    
+    .emoji-large {
+        font-size: 120px;
+    }
+    
+    .about-text h2 {
+        font-size: 32px;
+        white-space: normal;
+    }
+    
+    .about-text p {
+        font-size: 15px;
+        padding-left: 15px;
+    }
+    
+    .about-skills {
+        padding: 25px;
+    }
+    
+    .skill-name {
+        font-size: 15px;
+    }
+    
+    .skill-percent {
+        font-size: 13px;
+    }
+    
+    /* Statistics */
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        text-align: left;
+    }
+    
+    .stat-number {
+        font-size: 36px;
+        margin-bottom: 0;
+    }
+    
+    .stat-label {
+        font-size: 14px;
+    }
+    
+    /* Contacts Page */
+    .contacts-info {
+        padding: 30px;
+    }
+    
+    .contacts-info h2 {
+        font-size: 30px;
+    }
+    
+    .contact-item {
+        padding: 20px;
+        gap: 20px;
+    }
+    
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+    
+    .contact-link {
+        font-size: 18px;
+    }
+    
+    .contact-note {
+        padding: 18px;
+        font-size: 15px;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 30px 0;
+        margin-top: 60px;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* ===== MOBILE (480px and below) ===== */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    /* Header */
+    .logo a {
+        font-size: 22px;
+    }
+    
+    .nav__list {
+        gap: 12px;
+    }
+    
+    .nav__link {
+        font-size: 14px;
+        padding: 3px 0;
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero__title {
+        font-size: 36px;
+    }
+    
+    .hero__subtitle {
+        font-size: 15px;
+    }
+    
+    .hero::before {
+        font-size: 250px;
+    }
+    
+    /* Section Titles */
+    .section-title {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+    
+    .page-title {
+        font-size: 36px;
+    }
+    
+    .page-title::after {
+        width: 60px;
+        height: 3px;
+        margin: 12px auto 0;
+    }
+    
+    .page-subtitle {
+        font-size: 15px;
+    }
+    
+    /* Projects Grid */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .project-card {
+        padding: 18px;
+    }
+    
+    .project-card h3 {
+        font-size: 18px;
+    }
+    
+    .project-card p {
+        font-size: 13px;
+    }
+    
+    .project-tags {
+        gap: 6px;
+    }
+    
+    .project-tag {
+        padding: 4px 10px;
+        font-size: 10px;
+    }
+    
+    .project-stats {
+        font-size: 12px;
+        padding: 12px 0;
+    }
+    
+    .project-download {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    /* Filters */
+    .projects-filters {
+        gap: 8px;
+        margin-bottom: 30px;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    /* Add Project Button */
+    .add-project-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+    
+    /* About Page */
+    .about-header {
+        padding: 60px 0;
+    }
+    
+    .about-text h2 {
+        font-size: 28px;
+    }
+    
+    .about-text p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+    
+    .emoji-large {
+        font-size: 100px;
+    }
+    
+    .about-skills {
+        padding: 20px;
+    }
+    
+    .skill-name {
+        font-size: 14px;
+    }
+    
+    .skill-percent {
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+    
+    .skill-bar {
+        height: 6px;
+    }
+    
+    /* Statistics */
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .stat-label {
+        font-size: 12px;
+    }
+    
+    /* Contacts Page */
+    .contacts-info {
+        padding: 25px 20px;
+    }
+    
+    .contacts-info h2 {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding: 18px;
+    }
+    
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    
+    .contact-item h3 {
+        font-size: 16px;
+    }
+    
+    .contact-link {
+        font-size: 16px;
+    }
+    
+    .contact-note {
+        padding: 15px;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+    
+    .contact-note::before {
+        left: 15px;
+        top: -10px;
+        font-size: 12px;
+    }
+    
+    /* Empty State */
+    .empty-state {
+        padding: 40px 20px;
+    }
+    
+    .empty-state-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+    
+    .empty-state h3 {
+        font-size: 20px;
+    }
+    
+    .empty-state p {
+        font-size: 14px;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 25px 0;
+        margin-top: 50px;
+    }
+    
+    .footer__copyright {
+        font-size: 12px;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* ===== SMALL MOBILE (360px and below) ===== */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero__title {
+        font-size: 32px;
+    }
+    
+    .hero::before {
+        font-size: 200px;
+    }
+    
+    .page-title {
+        font-size: 32px;
+    }
+    
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .project-card {
+        padding: 15px;
+    }
+    
+    .project-card h3 {
+        font-size: 16px;
+    }
+    
+    .about-text h2 {
+        font-size: 24px;
+    }
+    
+    .emoji-large {
+        font-size: 80px;
+    }
+    
+    .stat-number {
+        font-size: 24px;
+    }
+    
+    .stat-label {
+        font-size: 11px;
+    }
+    
+    .contact-link {
+        font-size: 14px;
+    }
+}

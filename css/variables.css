@@ -1,0 +1,466 @@
+/* ===== VARIABLES.CSS ===== */
+/* Релизная версия: единый стандарт переменных + обратная совместимость */
+
+:root {
+    /* ===== СТАНДАРТ ИЗ ТЗ (светлая тема) ===== */
+    --bg-page: #ffffff;
+    --bg-card: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #3b82f6;
+    --border: #e2e8f0;
+    --shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+
+    /* ===== Текущие переменные проекта (алиасы) ===== */
+    --bg-primary: var(--bg-page);
+    --card-bg: var(--bg-card);
+
+    --text-muted: #64748b;
+
+    --accent-primary: var(--accent);
+    --accent-secondary: #2563eb;
+    --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+
+    --border-color: var(--border);
+
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --footer-bg: #0f172a;
+    --footer-text: #f8fafc;
+
+    /* ===== ТЕНИ (светлая тема) ===== */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] {
+    /* ===== СТАНДАРТ ИЗ ТЗ (тёмная тема) ===== */
+    --bg-page: #0f172a;
+    --bg-card: #1e293b; /* важно: отличается от --bg-page */
+    --bg-secondary: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --accent: #60a5fa;
+    --border: #334155;
+    --shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+
+    /* ===== Алиасы для текущих CSS ===== */
+    --bg-primary: var(--bg-page);
+    --card-bg: var(--bg-card);
+
+    --text-muted: #94a3b8;
+
+    --accent-primary: var(--accent);
+    --accent-secondary: #3b82f6;
+    --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+
+    --border-color: var(--border);
+
+    --success-color: #34d399;
+    --warning-color: #fbbf24;
+    --danger-color: #f87171;
+
+    --header-bg: rgba(15, 23, 42, 0.85);
+    --footer-bg: #0a0f1a;
+    --footer-text: #f1f5f9;
+
+    /* ===== ТЕНИ (тёмная тема) ===== */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===== */
+:root {
+    /* Размеры */
+    --container-width: 1200px;
+    --container-padding: 20px;
+    --header-height: 80px;
+
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
+    --border-radius-xl: 32px;
+    --border-radius-full: 9999px;
+
+    /* Анимации */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Шрифты */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 24px;
+    --font-size-3xl: 30px;
+    --font-size-4xl: 36px;
+    --font-size-5xl: 48px;
+    --font-size-6xl: 60px;
+
+    /* Динамические CSS-переменные */
+    --card-glow: radial-gradient(circle at 50% 0%, transparent, transparent);
+}
+
+/* ===== БАЗОВЫЕ СТИЛИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::selection {
+    background: var(--accent-primary);
+    color: #ffffff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    width: 100%;
+}
+
+main {
+    flex: 1;
+}
+
+/* ===== УТИЛИТЫ ===== */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ===== АДМИН-СТИЛИ ===== */
+
+.admin-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--success-color);
+    box-shadow: 0 0 20px var(--success-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+    z-index: 10000;
+}
+
+.admin-indicator.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin-panel {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-full);
+    padding: 12px 24px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all var(--transition-base);
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+}
+
+.admin-panel.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.admin-panel span {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+}
+
+.admin-panel button {
+    background: var(--danger-color);
+    color: #ffffff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: var(--border-radius-full);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-base);
+}
+
+.admin-panel button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* ===== КАСТОМНЫЙ СКРОЛЛБАР ===== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 999px;
+    border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}
+
+/* ===== ФОНОВЫЕ ЭФФЕКТЫ ===== */
+.background-aura {
+    position: fixed;
+    inset: -200px;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.aura-blob {
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border-radius: 999px;
+    filter: blur(80px);
+    opacity: 0.6;
+    mix-blend-mode: screen;
+    will-change: transform;
+}
+
+.blob-1 {
+    background: radial-gradient(circle at 30% 30%, #3b82f6, transparent 60%);
+    top: -80px;
+    left: -80px;
+    animation: auraFloat 22s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+    background: radial-gradient(circle at 70% 40%, #22c55e, transparent 65%);
+    bottom: -120px;
+    right: -60px;
+    animation: auraFloat 28s ease-in-out infinite alternate-reverse;
+}
+
+.blob-3 {
+    background: radial-gradient(circle at 50% 80%, #a855f7, transparent 60%);
+    top: 40%;
+    left: 60%;
+    animation: auraFloat 32s ease-in-out infinite alternate;
+}
+
+@keyframes auraFloat {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(-40px, 30px, 0) scale(1.08);
+    }
+    100% {
+        transform: translate3d(60px, -20px, 0) scale(0.95);
+    }
+}
+
+/* ===== КАСТОМНЫЙ КУРСОР ===== */
+.cursor-dot,
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate3d(-9999px, -9999px, 0);
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--accent-primary);
+    box-shadow: 0 0 12px var(--accent-primary);
+}
+
+.cursor-ring {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: 2px solid var(--accent-primary);
+    opacity: 0.6;
+    transition: transform 0.15s ease-out, border-color 0.15s ease-out, opacity 0.15s ease-out;
+}
+
+.cursor-ring.active {
+    opacity: 1;
+    border-color: var(--accent-primary);
+    transform: scale(1.2);
+}
+
+/* ===== УВЕДОМЛЕНИЯ ===== */
+.notification-container {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 10001;
+    display: grid;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.notification {
+    pointer-events: none;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.88);
+    color: #e5e7eb;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    transform: translateX(420px);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    backdrop-filter: blur(14px);
+    font-weight: 600;
+}
+
+.notification.is-visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification--success {
+    border-left: 4px solid var(--success-color);
+}
+
+.notification--error {
+    border-left: 4px solid var(--danger-color);
+}
+
+.notification--info {
+    border-left: 4px solid var(--accent-primary);
+}
+
+@media (max-width: 480px) {
+    .notification-container {
+        top: 18px;
+        right: 18px;
+        left: 18px;
+    }
+
+    .notification {
+        border-radius: 18px;
+        transform: translateY(-12px);
+    }
+
+    .notification.is-visible {
+        transform: translateY(0);
+    }
+}

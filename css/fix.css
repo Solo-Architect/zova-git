@@ -1,0 +1,65 @@
+/* ===== FIX.CSS ===== */
+/* Релиз: файл оставлен, но без "костылей" для карточек.
+   Здесь только стили админ-загрузки (admin.html). */
+
+.admin-upload-card {
+    background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 28px;
+}
+
+.admin-upload-card h2 {
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.admin-upload-card p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.admin-hint {
+    margin-top: 14px;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.admin-projects-title {
+    margin-top: 60px;
+}
+
+.drop-zone {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 26px 18px;
+    border-radius: var(--border-radius-lg);
+    border: 2px dashed var(--border-color);
+    background: var(--bg-secondary);
+    transition: all var(--transition-base);
+}
+
+.drop-zone__icon {
+    font-size: 42px;
+    line-height: 1;
+}
+
+.drop-zone__text {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.drop-zone.is-dragover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 20%, transparent);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .admin-upload-card {
+        padding: 20px;
+    }
+}

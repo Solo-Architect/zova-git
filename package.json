@@ -1,0 +1,25 @@
+{
+  "name": "git-vova-platform",
+  "version": "1.0.0",
+  "description": "Полностью автономная fullstack-платформа проектов для ГИТ ВОВА",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Vova",
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "cors": "^2.8.6",
+    "express": "^4.22.1",
+    "fs-extra": "^11.3.4",
+    "gsap": "^3.14.2",
+    "multer": "^1.4.5-lts.1",
+    "vanilla-tilt": "^1.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "playwright": "^1.58.2"
+  }
+}

@@ -1,0 +1,171 @@
+/* ===== HOME.CSS ===== */
+/* Главная страница - ПРОСТАЯ РАБОЧАЯ ВЕРСИЯ */
+
+.hero {
+    padding: 120px 0;
+    text-align: center;
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* ЛАДОШКА - БЕЗ АНИМАЦИИ */
+.hero::before {
+    content: '👋';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: min(500px, 80vw);
+    opacity: 0.1;
+    color: var(--accent);
+    pointer-events: none;
+    z-index: 0;
+    line-height: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.hero__title {
+    font-size: 72px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.hero__subtitle {
+    font-size: 20px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== LATEST PROJECTS ===== */
+.latest-projects {
+    padding: 80px 0;
+    background: var(--bg-secondary);
+}
+
+.section-title {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--text-primary);
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--accent-gradient);
+    margin: 20px auto 0;
+    border-radius: 4px;
+}
+
+/* Сетка проектов */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* Кнопка "Все проекты" */
+.view-all {
+    text-align: center;
+}
+
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 40px;
+    background: transparent;
+    color: var(--accent-primary);
+    text-decoration: none;
+    border: 2px solid var(--accent-primary);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.view-all-btn::after {
+    content: '→';
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+/* Адаптация */
+@media (max-width: 992px) {
+    .hero {
+        padding: 100px 0;
+    }
+    
+    .hero__title {
+        font-size: 56px;
+    }
+    
+    .hero::before {
+        font-size: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 0;
+    }
+    
+    .hero__title {
+        font-size: 48px;
+    }
+    
+    .hero__subtitle {
+        font-size: 18px;
+    }
+    
+    .hero::before {
+        font-size: 300px;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero__title {
+        font-size: 36px;
+    }
+    
+    .hero__subtitle {
+        font-size: 16px;
+    }
+    
+    .hero::before {
+        font-size: 250px;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}

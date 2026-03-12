@@ -1,0 +1,8 @@
+/* ===== MAIN.CSS ===== */
+@import 'variables.css';
+@import 'header-footer.css';
+@import 'home.css';
+@import 'projects.css';
+@import 'about.css';
+@import 'contacts.css';
+@import 'responsive.css';
